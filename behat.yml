@@ -1,0 +1,77 @@
+# behat.yml
+default:
+  autoload:
+    'B24\Tests\Functional\': %paths.base%/Tests/Functional
+  suites:
+    default:
+      paths:
+        - %paths.base%/tests/functional/features/advance/login.feature
+      contexts:
+        - B24\Tests\Functional\bootstrap\website\LoginContext
+    advance:
+      paths:
+        - %paths.base%/tests/functional/features/advance/brand.feature
+      contexts:
+        - B24\Tests\Functional\bootstrap\website\LoginContext
+    js_feature:
+      paths:
+        - %paths.base%/tests/functional/features/advance/project.feature
+      contexts:
+        - B24\Tests\Functional\bootstrap\website\ProjectContext:
+              css_1: input_name
+              url: http://brand24.pl/searches/edit/id/67382971
+              text: Zapisz
+              css_2: panel_projects_list
+    mentions_feature:
+      paths:
+        - %paths.base%/tests/functional/features/advance/mentions.feature
+      contexts:
+        - B24\Tests\Functional\bootstrap\website\MentionsContext:
+              css_1: selected_category_5
+              css_2: fa-facebook-square
+              css_3: mention-box
+              url: http://brand24.pl/panel/results/?sid=67382971#d1=2017-03-14&d2=2017-04-13&va=1&dr=4&cdt=days&or=0&p=1
+    search_feature:
+      paths:
+        - %paths.base%/tests/functional/features/advance/search.feature
+      contexts:
+        - B24\Tests\Functional\bootstrap\website\SearchContext:
+              css_1: filter_input_te
+              css_2: fa-search
+              css_3: search_text
+              word: Brand24
+              url: http://brand24.pl/panel/results/?sid=67382971#d1=2017-03-14&d2=2017-04-13&va=1&dr=4&cdt=days&or=0&p=1
+    analysis_feature:
+      paths:
+        - %paths.base%/tests/functional/features/advance/analysis.feature
+      contexts:
+        - B24\Tests\Functional\bootstrap\website\AnalysisContext:
+              cssFiltersButton: filters_popup_button
+              cssFilterInput: filter_input_te
+              cssSearchButton: results_search_btn
+              cssCloseTab: /html/body/div[11]/div[1]/a
+              url: http://brand24.pl/panel/results/?sid=67382971#d1=2017-03-14&d2=2017-04-13&va=1&dr=4&cdt=days&or=0&p=1
+              url_2: https://brand24.pl/panel/analysis/?sid=67382971#d1=2017-04-18&d2=2017-05-18&dr=4&va=1&cdt=days
+              word: brand24
+    fb_analysis_feature:
+      paths:
+        - %paths.base%/tests/functional/features/advance/fb_analysis.feature
+      contexts:
+        - B24\Tests\Functional\bootstrap\website\Fb_AnalysisContext:
+              url: http://brand24.pl/panel/results/?sid=67382971#d1=2017-03-14&d2=2017-04-13&va=1&dr=4&cdt=days&or=0&p=1
+              url_2: https://brand24.pl/panel/analysis/?sid=67382971#d1=2017-04-18&d2=2017-05-18&dr=4&va=1&cdt=days
+              css_1: filters_popup_button
+              css_2: fa-facebook-square
+              css_3: selected_category_5
+              css_4: /html/body/div[11]/div[1]/a
+              css_5: fa-thumbs-o-up
+              css_6: //*[@id="show_results_filters_btn"]
+  extensions:
+    Behat\MinkExtension:
+      base_url: 'https://brand24.pl/panel/'
+      sessions:
+      default_session: selenium2
+      browser_name: 'chrome'
+      selenium2:
+        wd_host: "http://127.0.0.1:4444/wd/hub"
+        capabilities: { "browserName": "chrome", "browser": "chrome", "version": "25", 'chrome': {'switches':['--no-sandbox']}}
